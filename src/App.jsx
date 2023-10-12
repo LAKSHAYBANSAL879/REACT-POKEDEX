@@ -1,9 +1,8 @@
 
-
+import { Link } from 'react-router-dom'
 import './App.css'
-import Pokedex from './components/Pokedex/Pokedex'
-import PokemonList from './components/PokemonList/PokemonList'
-import Search from './components/Search/Search'
+
+import CustomRoutes from './routes/CustomRoutes'
 
 
 function App() {
@@ -11,12 +10,10 @@ function App() {
 
   return (
     <>
-    <div className='flex align-middle items-center justify-center flex-col md:flex-row'>
-      <Pokedex/>
-      <Search/>
-      </div>
-      <PokemonList/>
-    </>
+      <Link to="/" className='flex justify-center text-4xl font-extrabold text-red-600 mt-3'>Pokedex</Link>
+<CustomRoutes/></>
+  
+  
   )
 }
 

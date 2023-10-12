@@ -43,7 +43,7 @@ return (
   <div className=" text-indigo-900 font-extrabold text-3xl mb-8">Pokemon List</div>
   <div className=" flex flex-wrap mt-2 ml-2 mr-2 mb-2 align-middle justify-center">
 {(isLoding)?'Loding...Wait': 
-pokemonList.map((p)=><Pokemon name={p.name} image={p.image} key={p.id}/>)
+pokemonList.map((p)=><Pokemon name={p.name} image={p.image} key={p.id} id={p.id}/>)
 }
 </div>
 <div className="flex flex-row justify-center align-middle">
