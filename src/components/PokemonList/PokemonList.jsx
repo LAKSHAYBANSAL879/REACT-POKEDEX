@@ -4,7 +4,7 @@ import usePokemonList from "../../hooks/usePokemonList.js";
 
 function PokemonList(){
   const DEFAULT_URL="https://pokeapi.co/api/v2/pokemon";
-const [pokemonListState, setpokemonListState] = usePokemonList(DEFAULT_URL);
+const [pokemonListState, setPokemonListState] = usePokemonList(DEFAULT_URL);
 
 
 return (
@@ -17,15 +17,15 @@ pokemonListState.pokemonList.map(p=><Pokemon name={p.name} url={p.image} key={p.
 }
 </div>
 <div className="flex flex-row justify-center align-middle">
-    <button disabled={pokemonListState.previousUrl==null} onClick={()=>
-      setpokemonListState({...pokemonListState,pokedexurl:pokemonListState.prevUrl})
+    <button disabled={pokemonListState.prevUrl==null} onClick={()=>
+      setPokemonListState({...pokemonListState,pokedexUrl:pokemonListState.prevUrl})
     } 
     className=" bg-slate-300 border-black border-2 p-2 mr-3 disabled:bg-slate-100">Previous</button>
 
     <button  disabled={pokemonListState.nextUrl==null} onClick={()=>
     
   
-      setpokemonListState({...pokemonListState,pokedexurl:pokemonListState.nextUrl})
+      setPokemonListState({...pokemonListState,pokedexUrl:pokemonListState.nextUrl})
     }
    className=" bg-slate-300 border-black border-2 p-2 w-20" >Next</button>
 </div>
