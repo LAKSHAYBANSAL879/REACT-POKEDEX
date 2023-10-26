@@ -1,38 +1,45 @@
-import {  useParams } from "react-router-dom";
-import axios from 'axios';
-import { useEffect, useState } from "react";
 
-function PokemonDetails(){
-    const {id}=useParams();
-    const [pokemon ,setPokemon]=useState({});
-    async function downloadPokemon(){
-        const response =await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        console.log(response.data);
-        setPokemon({
-            name:response.data.name,
-            image:response.data.sprites.other.dream_world.front_default,
-weight:response.data.weight,
-height:response.data.height,
-types:response.data.types.map((t)=>t.type.name)
+import usePokemon from "../../hooks/usePokemon";
+import Pokemon from "../Pokemon/Pokemon";
 
-        })
-    }
-  
-    useEffect(()=>{
-        downloadPokemon();
-    },[]);
-return (
+
+function PokemonDetails({pokemonName}) {
+   const [pokemon,pokemonListState]=usePokemon(pokemonName)
+
+   return (
+    <div>
     
-    <div className=" flex flex-col justify-center align-middle items-center mt-7 bg-yellow-100 w-fit h-fit p-5 m-auto ">
+    {pokemon && <div className='flex flex-col m-auto items-center align-middle gap-3 mt-4 bg-orange-100 w-1/4 '>
+        <div className='text-4xl font-bold text-blue-500 flex items-center justify-center'>
+            {pokemon.name}
+        </div>
+        <div className=''>
+            <img src={pokemon.image} className="w-44 h-44 h" />
+        </div>
+        <div className='pokemon-attr'>
+            <div className="flex flex-row text-green-500 text-xl font-bold">
+                height: {pokemon.height}
 
+            </div>
+            <div className="flex flex-row text-green-500 text-xl font-bold">
+            weight: {pokemon.weight}
 
-        <div className="text-3xl  text-red-700 font-extrabold underline">{pokemon.name}</div>
-        <img src={pokemon.image} alt=""/>
-        <div className="text-2xl text-blue-500 font-semibold font-mono ">weight:{pokemon.weight}</div>
-        <div className="text-2xl text-blue-500 font-semibold font-mono" >height:{pokemon.height}</div>
-        <div className="text-green-500 text-xl font-bold">{ pokemon.types && pokemon.types.map((t)=><div key={t}>{t}</div>)}</div>
-
+            </div>
+        </div>
+        <div className='flex flex-row text-xl text-red-600 font-bold mb-2'>
+            <h1>Type:</h1> {pokemon.types.map(t => <span className='type' key={t.type.name}>{t.type.name}</span>)}
+        </div>
+    </div>}
+    <div className='flex flex-col justify-center items-center ml-3 mb-3'>
+        <h2 className="text-xl font-bold text-blue-500 mt-2 mb-3"> Similar pokemons </h2>
+        <div className='flex flex-row  flex-wrap'>
+            {pokemonListState.pokemonList.length > 0 && 
+                 pokemonListState.pokemonList.map(pokemon => <Pokemon name={pokemon.name} key={pokemon.id} url={pokemon.image} id={pokemon.id} />)
+            }
+        </div>
     </div>
+    </div>
+
 )
 
 }
